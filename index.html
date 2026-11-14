@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio of Rik Mondal — Aspiring Data Scientist & Full-Stack Software Developer.">
+<title>Rik Mondal | Data Science & Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="Style.css">
+<noscript><style>#welcome-overlay{display:none!important}</style></noscript>
+<style>
+  #welcome-overlay {
+    position: fixed;
+    inset: 0;
+    background: #050505;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s ease;
+  }
+  .welcome-content {
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    text-align: center;
+    padding: 24px;
+  }
+  .intro-label {
+    display: grid;
+    gap: 7px;
+    color: #f4f2ef;
+    font: 700 10px/1 Inter, sans-serif;
+    letter-spacing: 0.2em;
+  }
+  .intro-label span { color: #8b8b92; font-size: 9px; }
+  .enter-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .enter-pulse, .enter-pulse-2 {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid #8bd8c5;
+    pointer-events: none;
+    animation: radiate 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+  .enter-pulse-2 { animation-delay: 1.1s; }
+  #start-btn {
+    position: relative;
+    z-index: 2;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #d2f6ec, #58bba4);
+    color: #ffffff;
+    font: 400 26px/1 Anton, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 40px rgba(114, 205, 182, 0.36), inset 0 0 18px rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  #start-btn:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 60px rgba(114, 205, 182, 0.56), inset 0 0 22px rgba(255, 255, 255, 0.4);
+  }
+  #start-btn:active { transform: scale(0.96); }
+  #start-btn:focus-visible { outline: 3px solid #e3fff6; outline-offset: 7px; }
+  #skip-intro {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 22px;
+    min-width: min(280px, calc(100vw - 48px));
+    padding: 12px 15px 12px 18px;
+    border: 1px solid rgba(114, 205, 182, 0.35);
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(19, 38, 34, 0.9), rgba(11, 13, 16, 0.96));
+    color: #e6f7ff;
+    text-align: left;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+    transition: border-color 0.2s ease, background 0.2s ease, translate 0.2s ease, box-shadow 0.2s ease;
+  }
+  #skip-intro:hover {
+    border-color: #8bd8c5;
+    background: linear-gradient(135deg, rgba(22, 52, 45, 0.98), rgba(11, 16, 20, 0.98));
+    translate: 0 -2px;
+    box-shadow: 0 16px 40px rgba(72, 168, 143, 0.2);
+  }
+  #skip-intro:active { translate: 0 0; }
+  #skip-intro:focus-visible { outline-color: #8bd8c5; }
+  .skip-label { font: 700 13px/1.3 Inter, sans-serif; letter-spacing: 0.02em; }
+  .skip-detail { grid-column: 1; margin-top: 3px; color: #9eabb3; font: 400 11px/1.3 Inter, sans-serif; }
+  .skip-arrow {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border: 1px solid rgba(114, 205, 182, 0.32);
+    border-radius: 50%;
+    color: #a7e8d8;
+    font-size: 17px;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  #skip-intro:hover .skip-arrow { transform: translateX(3px); background: rgba(114, 205, 182, 0.1); }
+  .intro-caption {
+    color: #8b8b92;
+    font: 600 9px/1 Inter, sans-serif;
+    letter-spacing: 0.22em;
+  }
+  @keyframes radiate {
+    0% { transform: scale(0.95); opacity: 0.85; }
+    100% { transform: scale(1.85); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="welcome-overlay" role="dialog" aria-modal="true" aria-label="Portfolio introduction">
+  <div class="welcome-content">
+    <p class="intro-label">RIK MONDAL<span>DATA SCIENCE · FULL-STACK · 3D</span></p>
+    <div class="enter-wrap">
+      <div class="enter-pulse"></div>
+      <div class="enter-pulse-2"></div>
+      <button id="start-btn" type="button">ENTER</button>
+    </div>
+    <button id="skip-intro" type="button" aria-label="Skip the introduction and view the portfolio">
+      <span class="skip-label">Skip intro</span>
+      <span class="skip-detail">Jump straight to the portfolio</span>
+      <span class="skip-arrow" aria-hidden="true">→</span>
+    </button>
+    <p class="intro-caption">GUIDED TOUR · SKIP ANYTIME</p>
+  </div>
+</div>
+<button id="skip-tour" type="button" aria-label="Skip the guided tour and view the portfolio" aria-keyshortcuts="Escape" hidden>
+  <span class="tour-icon" aria-hidden="true">×</span>
+  <span class="tour-copy"><strong>Skip tour</strong><small>Go straight to the portfolio</small></span>
+  <span class="tour-arrow" aria-hidden="true">→</span>
+</button>
+
+<div class="cursors" aria-hidden="true"></div>
+<div class="progress"></div>
+
+<header class="nav">
+  <a href="#home" class="logo">RIK<i></i></a>
+  <nav id="primary-navigation" aria-label="Main navigation">
+    <a href="#work">Projects</a><a href="#awards">Honors</a><a href="#about">Skills</a><a href="#experience">Education</a><a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="pill">Let's talk</a>
+  <button id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+<section id="home" class="hero">
+  <div class="ghost" aria-hidden="true">PORTFO<span class="ghost-highlight">LIO</span></div>
+  <div class="hero-copy">
+    <span class="script">Hello, I'm</span>
+    <h1 class="name">RIK MONDAL</h1>
+    <p class="role">Aspiring Data Scientist &<br>Full-Stack Software Developer</p>
+    <p class="lead">Incoming IIT Madras BS in Data Science & Applications undergraduate building full-stack web applications, Android mobile apps, and interactive 3D/AI systems.</p>
+    <div class="actions">
+      <a href="#work" class="btn">Explore projects</a>
+      <button class="play" id="reel" type="button"><span></span>Profile summary</button>
+    </div>
+  </div>
+  <figure class="portrait portrait-3d">
+    <div class="portrait-card">
+      <div class="portrait-glow" aria-hidden="true"></div>
+      <div class="portrait-photo">
+        <button class="portrait-photo-button" id="portrait-photo-button" type="button" aria-label="Open full-size portrait" aria-haspopup="dialog">
+          <img src="My-PIC.jpeg" alt="Rik Mondal — Aspiring Data Scientist & Full-Stack Software Developer" loading="eager">
+        </button>
+      </div>
+      <div class="portrait-rim" aria-hidden="true"></div>
+      <div class="portrait-badge"><span>IITM BS · DATA SCIENCE</span></div>
+      <button class="portrait-view-button" id="portrait-view-button" type="button" aria-label="Open full-size portrait" aria-haspopup="dialog">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m8 0h3a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </figure>
+  <aside class="meta"><b>81.6<sup>%</sup></b><span>Class 12 PCMB</span><b>75<sup>%</sup></b><span>IITM Qualifier</span></aside>
+</section>
+
+<section id="work" class="sec">
+  <p class="tag">Featured engineering builds</p>
+  <h2 class="h2">Work that speaks.</h2>
+  <div class="tabs" role="tablist" aria-label="Filter projects">
+    <button class="on" id="filter-all" type="button" role="tab" aria-selected="true" aria-controls="grid" tabindex="0" data-f="all">All</button>
+    <button id="filter-ai" type="button" role="tab" aria-selected="false" aria-controls="grid" tabindex="-1" data-f="ai">AI & 3D</button>
+    <button id="filter-web" type="button" role="tab" aria-selected="false" aria-controls="grid" tabindex="-1" data-f="web">Web & Mobile</button>
+    <button id="filter-core" type="button" role="tab" aria-selected="false" aria-controls="grid" tabindex="-1" data-f="core">Core OOP</button>
+  </div>
+  <div class="grid-wrap" id="work-slider">
+    <div class="grid" id="grid" role="tabpanel" aria-labelledby="filter-all" tabindex="0"></div>
+  </div>
+</section>
+
+<section class="clients">
+  <div class="clients-head">
+    <p class="tag">Selected software & interactive systems</p>
+    <span class="clients-hint">DRAG OR SCROLL TO EXPLORE <i aria-hidden="true">↗</i></span>
+  </div>
+  <div class="track-wrap" id="brand-track" role="group" aria-label="Featured project shortcuts">
+    <div class="track">
+      <div class="track-set">
+        <button type="button" data-project="ai-assistant">LOCAL DESKTOP AI ASSISTANT (3D AVATAR)</button>
+        <button type="button" data-project="android-cloud">FULL-STACK ANDROID APP (FIREBASE)</button>
+        <button type="button" data-project="portfolio-3d">3D INTERACTIVE DEVELOPER PORTFOLIO</button>
+        <button type="button" data-project="billing-system">RETAIL BILLING & INVENTORY SYSTEM (C++ / JAVA)</button>
+      </div>
+      <div class="track-set" aria-hidden="true">
+        <button type="button" data-project="ai-assistant" tabindex="-1">LOCAL DESKTOP AI ASSISTANT (3D AVATAR)</button>
+        <button type="button" data-project="android-cloud" tabindex="-1">FULL-STACK ANDROID APP (FIREBASE)</button>
+        <button type="button" data-project="portfolio-3d" tabindex="-1">3D INTERACTIVE DEVELOPER PORTFOLIO</button>
+        <button type="button" data-project="billing-system" tabindex="-1">RETAIL BILLING & INVENTORY SYSTEM (C++ / JAVA)</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="awards" class="sec awards">
+  <div>
+    <h2 class="h2">Academic rigor.<br><em>Merit & honors.</em></h2>
+    <div class="big"><span id="count" data-to="75">0</span><sup>%</sup></div>
+    <p class="cap">IIT Madras Qualifier Score</p>
+    <p class="muted">Strong analytical foundation in Mathematics, Computer Science, and problem-solving across academic and hands-on engineering environments.</p>
+  </div>
+  <ol class="list">
+    <li><b>IIT Madras BS Qualifier Achievement</b><small>Cleared Qualifier Exam for 4-Year Data Science & Applications Degree</small><em>2026</em></li>
+    <li><b>Higher Secondary (Class 12) — 81.6%</b><small>Science Stream (PCMB) · West Bengal Council of Higher Secondary Education</small><em>2026</em></li>
+    <li><b>Secondary Examination (Class 10) — 76.0%</b><small>West Bengal Board of Secondary Education (WBBSE)</small><em>2024</em></li>
+    <li><b>NMMSE Merit Scholar</b><small>National Means-cum-Merit Scholarship Examination · West Bengal State Merit</small><em>2021–22</em></li>
+  </ol>
+</section>
+
+<section id="about" class="sec about">
+  <p class="tag">Technical stack & workflow</p>
+  <h2 class="h2 wide">Not just code.<br>A way of <em>solving problems.</em></h2>
+  <div class="about-intro">
+    <div class="about-initials" aria-hidden="true">RM</div>
+    <div class="about-intro-copy">
+      <p class="about-kicker">A LITTLE ABOUT ME</p>
+      <h3>Curious by nature. Building with purpose.</h3>
+      <p>I'm Rik Mondal, an incoming IIT Madras Data Science student. I build web and Android applications and explore AI and interactive 3D experiences.</p>
+    </div>
+    <div class="about-focus" aria-label="Areas of focus">
+      <span>DATA SCIENCE</span>
+      <span>FULL-STACK</span>
+      <span>AI & 3D</span>
+    </div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Core Technical Skills</h3>
+      <p><b>Languages & Logic</b><br><span class="muted">Python, C++ (DSA & OOP), Java, C#, JavaScript (ES6+)</span></p>
+      <p><b>Web, Mobile, Cloud & 3D</b><br><span class="muted">React.js, Three.js, Node.js, Android Studio, Firebase, MySQL, MongoDB, Blender & AI Workflows</span></p>
+      <div class="chips skill-chips">
+        <button type="button" data-skill="Python">Python</button>
+        <button type="button" data-skill="C++">C++ & DSA</button>
+        <button type="button" data-skill="Java">Java</button>
+        <button type="button" data-skill="JavaScript">JavaScript (ES6+)</button>
+        <button type="button" data-skill="React & Three.js">React.js & Three.js</button>
+        <button type="button" data-skill="HTML5 / CSS3">HTML5 / CSS3</button>
+        <button type="button" data-skill="Android Studio">Android Studio</button>
+        <button type="button" data-skill="Firebase & DBs">Firebase & Databases</button>
+        <button type="button" data-skill="Blender & 3D">Blender & 3D</button>
+        <button type="button" data-skill="AI & LLM Workflows">AI & LLM Workflows</button>
+      </div>
+    </div>
+    <div>
+      <h3>Engineering Methodology</h3>
+      <ol class="steps">
+        <li><b>System architecture</b><span>Design modular schemas, object-oriented structures, and clean APIs.</span></li>
+        <li><b>Iterative implementation</b><span>Combine foundational programming with AI-assisted workflows for rapid prototyping.</span></li>
+        <li><b>Interactive UI & 3D</b><span>Craft responsive interfaces and dynamic 3D visual feedback.</span></li>
+        <li><b>Testing & deployment</b><span>Version-control with Git/GitHub and deploy via GitHub Pages & Netlify.</span></li>
+      </ol>
+    </div>
+    <blockquote>Driven by solving real-world problems through clean software architecture, data science, and interactive 3D/AI systems.<cite>Rik Mondal</cite></blockquote>
+  </div>
+</section>
+
+<section id="experience" class="sec">
+  <p class="tag">Academic timeline & languages</p>
+  <ul class="exp">
+    <li>
+      <details class="exp-item">
+        <summary>
+          <time>Jan 2027 – Present</time>
+          <span class="exp-title"><b>BS in Data Science and Applications</b><small>IIT Madras · 4-Year Online Degree</small></span>
+          <span class="exp-plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="exp-detail"><p>I cleared the IIT Madras qualifier for its four-year BS in Data Science and Applications, scheduled to begin in January 2027.</p></div>
+      </details>
+    </li>
+    <li>
+      <details class="exp-item">
+        <summary>
+          <time>Graduated 2026</time>
+          <span class="exp-title"><b>Higher Secondary · PCMB</b><small>WBCHSE · Aggregate: 81.6%</small></span>
+          <span class="exp-plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="exp-detail"><p>Completed the science stream with Physics, Chemistry, Mathematics, and Biology under the West Bengal Council of Higher Secondary Education.</p></div>
+      </details>
+    </li>
+    <li>
+      <details class="exp-item">
+        <summary>
+          <time>Graduated 2024</time>
+          <span class="exp-title"><b>Secondary Examination · Class 10</b><small>WBBSE · Aggregate: 76.0%</small></span>
+          <span class="exp-plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="exp-detail"><p>Completed the West Bengal Board of Secondary Education examination in 2024 with an aggregate score of 76%.</p></div>
+      </details>
+    </li>
+    <li>
+      <details class="exp-item">
+        <summary>
+          <time>Languages</time>
+          <span class="exp-title"><b>Bengali · English · Hindi</b><small>Native · Professional · Conversational</small></span>
+          <span class="exp-plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="exp-detail"><p>Bengali is my native language. I use English professionally and Hindi conversationally.</p></div>
+      </details>
+    </li>
+  </ul>
+</section>
+
+<section id="contact" class="sec contact">
+  <div>
+    <p class="tag">Murshidabad, West Bengal, India · 742147</p>
+    <h2 class="mega">OPEN TO<br>OPPORTUNITIES.</h2>
+  </div>
+  <div class="links">
+    <a href="mailto:mondalrik402@gmail.com"><small>Email</small>mondalrik402@gmail.com</a>
+    <a href="tel:+918388920564"><small>Phone</small>+91 83889 20564</a>
+    <a href="https://github.com/RikMondal2007" target="_blank" rel="noopener noreferrer"><small>GitHub</small>github.com/RikMondal2007</a>
+    <a href="https://www.linkedin.com/in/rik-mondal-12a78144a" target="_blank" rel="noopener noreferrer"><small>LinkedIn</small>linkedin.com/in/rik-mondal-12a78144a</a>
+  </div>
+  <div class="card">SEEKING INTERNSHIPS<br><em>& HACKATHONS.</em></div>
+</section>
+</main>
+
+<footer>© 2026 Rik Mondal · Murshidabad, West Bengal, India. All rights reserved.</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="mt" aria-describedby="ms" tabindex="-1">
+    <button id="close" type="button" aria-label="Close">×</button>
+    <div class="vid" id="modal-header-bg"></div>
+    <h3 id="mt"></h3>
+    <p class="muted" id="ms"></p>
+    <div class="modal-info" id="mi"></div>
+    <div id="portrait-view" hidden>
+      <div class="portrait-modal-photo">
+        <img id="portrait-full-image" src="My-PIC.jpeg" alt="Full portrait of Rik Mondal">
+      </div>
+      <div class="portrait-modal-copy">
+        <p class="portrait-modal-kicker">RIK MONDAL · PORTRAIT</p>
+        <p class="portrait-modal-description">Data Science &amp; Full-Stack Software Developer</p>
+        <span class="portrait-modal-hint">Click outside or press Esc to close</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="Main.js"></script>
+</body>
+</html>
